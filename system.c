@@ -24,6 +24,7 @@ please contact mla_licensing@microchip.com
 #include <usb.h>
 #include <adc.h>
 #include <usb_device_hid.h>
+#include "UDF.h"
 
 /** CONFIGURATION Bits **********************************************/
 #pragma config PLLDIV   = 1         // (4 MHz crystal) MODDED
@@ -94,10 +95,10 @@ void SYSTEM_Initialize( SYSTEM_STATE state )
 }
 
 
-extern volatile USB_HANDLE USBInHandle;
-volatile unsigned int BufferCounter;
-volatile unsigned int BufferPingPong;
-extern unsigned char ToSendDataBuffer[64] @ HID_CUSTOM_IN_DATA_BUFFER_ADDRESS;
+//extern volatile USB_HANDLE USBInHandle;
+//volatile unsigned int BufferCounter;
+//volatile unsigned int BufferPingPong;
+//extern unsigned char ToSendDataBuffer[64] @ HID_CUSTOM_IN_DATA_BUFFER_ADDRESS;
 
 #if defined(__XC8)
 void interrupt SYS_InterruptHigh(void)
@@ -108,39 +109,12 @@ void interrupt SYS_InterruptHigh(void)
 }
 
 ///MODDED
+
+//Low priority interrupt belongs to UDF ONLY
 void interrupt low_priority ISRLowPriority(void)
 {
-    //ISR for continous reading of ADC
-    if(PIE1bits.ADIE && PIR1bits.ADIF)
-    {
-        if(BufferCounter + 1 == 61)
-        {
-            if(!HIDTxHandleBusy(USBInHandle))
-            {
-                ToSendDataBuffer[BufferCounter] = ADRESL;
-                ToSendDataBuffer[BufferCounter + 1] = ADRESH;
-                ToSendDataBuffer[63] = 255;
-                USBInHandle = HIDTxPacket(CUSTOM_DEVICE_HID_EP, (uint8_t*) & ToSendDataBuffer[0], 64);
-                BufferCounter = 0;
-                PIR1bits.ADIF = 0;
-                ADCON0bits.GODONE = 1;
-                return;
-            }
-            else
-            {
-                return;//Go outside ISR without clearing the flags so the PIC reentry to ISR again to see if handle is free
-            }
-        }
-        else
-        {
-            ToSendDataBuffer[BufferCounter] = ADRESL;
-            ToSendDataBuffer[BufferCounter + 1] = ADRESH;
-            BufferCounter = BufferCounter + 2;
-            PIR1bits.ADIF = 0;
-            ADCON0bits.GODONE =1;
-            return;
-        }
-    }
+    //Call the UDF ISR
+    UDF_ISR();
 }
 
 

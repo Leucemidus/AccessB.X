@@ -25,6 +25,9 @@
             <itemPath>system.h</itemPath>
           </logicalFolder>
         </logicalFolder>
+        <logicalFolder name="f2" displayName="UDF" projectFiles="true">
+          <itemPath>UDF.h</itemPath>
+        </logicalFolder>
         <itemPath>system_config.h</itemPath>
         <itemPath>usb_config.h</itemPath>
         <itemPath>app_device_custom_hid.h</itemPath>
@@ -54,6 +57,9 @@
         <itemPath>usb_descriptors.c</itemPath>
         <itemPath>app_device_custom_hid.c</itemPath>
         <itemPath>AccessB.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f3" displayName="UDF" projectFiles="true">
+        <itemPath>UDF.c</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -104,7 +110,7 @@
         <property key="asmlist" value="true"/>
         <property key="define-macros" value=""/>
         <property key="extra-include-directories"
-                  value="C:\Users\Omar trevizo\MPLABXProjects\AccessB.X"/>
+                  value="C:\Users\Sodor\MPLABXProjects\AccessB.X"/>
         <property key="identifier-length" value="255"/>
         <property key="operation-mode" value="free"/>
         <property key="opt-xc8-compiler-strict_ansi" value="false"/>
@@ -128,7 +134,8 @@
       <HI-TECH-LINK>
         <property key="additional-options-checksum" value=""/>
         <property key="additional-options-code-offset" value=""/>
-        <property key="additional-options-command-line" value=""/>
+        <property key="additional-options-command-line"
+                  value="-L-AAccB_Class=4280h-7FFFh -L-PAccB_Psect=AccB_Class"/>
         <property key="additional-options-errata" value=""/>
         <property key="additional-options-extend-address" value="false"/>
         <property key="additional-options-trace-type" value=""/>
@@ -138,7 +145,7 @@
         <property key="calibrate-oscillator-value" value=""/>
         <property key="clear-bss" value="true"/>
         <property key="code-model-external" value="wordwrite"/>
-        <property key="code-model-rom" value=""/>
+        <property key="code-model-rom" value="default,-4280-7FFF"/>
         <property key="create-html-files" value="false"/>
         <property key="data-model-ram" value=""/>
         <property key="data-model-size-of-double" value="24"/>
@@ -146,10 +153,10 @@
         <property key="display-class-usage" value="false"/>
         <property key="display-hex-usage" value="false"/>
         <property key="display-overall-usage" value="true"/>
-        <property key="display-psect-usage" value="false"/>
-        <property key="fill-flash-options-addr" value=""/>
-        <property key="fill-flash-options-const" value=""/>
-        <property key="fill-flash-options-how" value="0"/>
+        <property key="display-psect-usage" value="true"/>
+        <property key="fill-flash-options-addr" value="0x3EC0:0x7FC0"/>
+        <property key="fill-flash-options-const" value="0xAABB"/>
+        <property key="fill-flash-options-how" value="1"/>
         <property key="fill-flash-options-inc-const" value="1"/>
         <property key="fill-flash-options-increment" value=""/>
         <property key="fill-flash-options-seq" value=""/>

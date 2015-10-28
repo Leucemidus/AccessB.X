@@ -1,339 +1,5 @@
 
-# 1 "usb_device_hid.c"
-
-# 13 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\stdint.h"
-typedef signed char int8_t;
-
-# 20
-typedef signed int int16_t;
-
-# 28
-typedef signed short long int int24_t;
-
-# 36
-typedef signed long int int32_t;
-
-# 43
-typedef unsigned char uint8_t;
-
-# 49
-typedef unsigned int uint16_t;
-
-# 56
-typedef unsigned short long int uint24_t;
-
-# 63
-typedef unsigned long int uint32_t;
-
-# 71
-typedef signed char int_least8_t;
-
-# 78
-typedef signed int int_least16_t;
-
-# 90
-typedef signed short long int int_least24_t;
-
-# 98
-typedef signed long int int_least32_t;
-
-# 105
-typedef unsigned char uint_least8_t;
-
-# 111
-typedef unsigned int uint_least16_t;
-
-# 121
-typedef unsigned short long int uint_least24_t;
-
-# 128
-typedef unsigned long int uint_least32_t;
-
-# 137
-typedef signed char int_fast8_t;
-
-# 144
-typedef signed int int_fast16_t;
-
-# 156
-typedef signed short long int int_fast24_t;
-
-# 164
-typedef signed long int int_fast32_t;
-
-# 171
-typedef unsigned char uint_fast8_t;
-
-# 177
-typedef unsigned int uint_fast16_t;
-
-# 187
-typedef unsigned short long int uint_fast24_t;
-
-# 194
-typedef unsigned long int uint_fast32_t;
-
-# 200
-typedef int32_t intmax_t;
-
-
-
-
-typedef uint32_t uintmax_t;
-
-
-
-
-typedef int16_t intptr_t;
-
-
-
-
-typedef uint16_t uintptr_t;
-
-# 69 "usb_ch9.h"
-typedef struct  _USB_DEVICE_DESCRIPTOR
-{
-uint8_t bLength;
-uint8_t bDescriptorType;
-uint16_t bcdUSB;
-uint8_t bDeviceClass;
-uint8_t bDeviceSubClass;
-uint8_t bDeviceProtocol;
-uint8_t bMaxPacketSize0;
-uint16_t idVendor;
-uint16_t idProduct;
-uint16_t bcdDevice;
-uint8_t iManufacturer;
-uint8_t iProduct;
-uint8_t iSerialNumber;
-uint8_t bNumConfigurations;
-} USB_DEVICE_DESCRIPTOR;
-
-# 93
-typedef struct  _USB_CONFIGURATION_DESCRIPTOR
-{
-uint8_t bLength;
-uint8_t bDescriptorType;
-uint16_t wTotalLength;
-uint8_t bNumInterfaces;
-uint8_t bConfigurationValue;
-uint8_t iConfiguration;
-uint8_t bmAttributes;
-uint8_t bMaxPower;
-} USB_CONFIGURATION_DESCRIPTOR;
-
-# 116
-typedef struct  _USB_INTERFACE_DESCRIPTOR
-{
-uint8_t bLength;
-uint8_t bDescriptorType;
-uint8_t bInterfaceNumber;
-uint8_t bAlternateSetting;
-uint8_t bNumEndpoints;
-uint8_t bInterfaceClass;
-uint8_t bInterfaceSubClass;
-uint8_t bInterfaceProtocol;
-uint8_t iInterface;
-} USB_INTERFACE_DESCRIPTOR;
-
-# 135
-typedef struct  _USB_ENDPOINT_DESCRIPTOR
-{
-uint8_t bLength;
-uint8_t bDescriptorType;
-uint8_t bEndpointAddress;
-uint8_t bmAttributes;
-uint16_t wMaxPacketSize;
-uint8_t bInterval;
-} USB_ENDPOINT_DESCRIPTOR;
-
-# 185
-typedef struct
-{
-uint8_t index;
-uint8_t type;
-uint16_t language_id;
-
-} DESCRIPTOR_ID;
-
-# 200
-typedef struct  _USB_OTG_DESCRIPTOR
-{
-uint8_t bLength;
-uint8_t bDescriptorType;
-uint8_t bmAttributes;
-} USB_OTG_DESCRIPTOR;
-
-# 224
-typedef struct  _USB_STRING_DSC
-{
-uint8_t bLength;
-uint8_t bDescriptorType;
-
-} USB_STRING_DESCRIPTOR;
-
-# 243
-typedef struct  _USB_DEVICE_QUALIFIER_DESCRIPTOR
-{
-uint8_t bLength;
-uint8_t bType;
-uint16_t bcdUSB;
-uint8_t bDeviceClass;
-uint8_t bDeviceSubClass;
-uint8_t bDeviceProtocol;
-uint8_t bMaxPacketSize0;
-uint8_t bNumConfigurations;
-uint8_t bReserved;
-
-} USB_DEVICE_QUALIFIER_DESCRIPTOR;
-
-# 266
-typedef union 
-{
-
-struct 
-{
-uint8_t bmRequestType;
-uint8_t bRequest;
-uint16_t wValue;
-uint16_t wIndex;
-uint16_t wLength;
-};
-struct 
-{
-unsigned :8;
-unsigned :8;
-union
-{
-uint16_t Val;
-uint8_t v[2];
-struct
-{
-uint8_t LB;
-uint8_t HB;
-} byte;
-} W_Value;
-
-union
-{
-uint16_t Val;
-uint8_t v[2];
-struct
-{
-uint8_t LB;
-uint8_t HB;
-} byte;
-} W_Index;
-
-union
-{
-uint16_t Val;
-uint8_t v[2];
-struct
-{
-uint8_t LB;
-uint8_t HB;
-} byte;
-} W_Length;
-};
-struct 
-{
-unsigned Recipient:5;
-unsigned RequestType:2;
-unsigned DataDir:1;
-unsigned :8;
-uint8_t bFeature;
-unsigned :8;
-unsigned :8;
-unsigned :8;
-unsigned :8;
-unsigned :8;
-};
-struct 
-{
-union
-{
-uint8_t bmRequestType;
-struct
-{
-uint8_t recipient: 5;
-uint8_t type: 2;
-uint8_t direction: 1;
-};
-}requestInfo;
-};
-struct 
-{
-unsigned :8;
-unsigned :8;
-uint8_t bDscIndex;
-uint8_t bDescriptorType;
-uint16_t wLangID;
-unsigned :8;
-unsigned :8;
-};
-struct 
-{
-unsigned :8;
-unsigned :8;
-uint8_t bDevADR;
-uint8_t bDevADRH;
-unsigned :8;
-unsigned :8;
-unsigned :8;
-unsigned :8;
-};
-struct 
-{
-unsigned :8;
-unsigned :8;
-uint8_t bConfigurationValue;
-uint8_t bCfgRSD;
-unsigned :8;
-unsigned :8;
-unsigned :8;
-unsigned :8;
-};
-struct 
-{
-unsigned :8;
-unsigned :8;
-uint8_t bAltID;
-uint8_t bAltID_H;
-uint8_t bIntfID;
-uint8_t bIntfID_H;
-unsigned :8;
-unsigned :8;
-};
-struct 
-{
-unsigned :8;
-unsigned :8;
-unsigned :8;
-unsigned :8;
-uint8_t bEPID;
-uint8_t bEPID_H;
-unsigned :8;
-unsigned :8;
-};
-struct 
-{
-unsigned :8;
-unsigned :8;
-unsigned :8;
-unsigned :8;
-unsigned EPNum:4;
-unsigned :3;
-unsigned EPDir:1;
-unsigned :8;
-unsigned :8;
-unsigned :8;
-};
-
-
-
-} CTRL_TRF_SETUP, SETUP_PKT, *PSETUP_PKT;
+# 1 "UDF.c"
 
 # 21 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -4640,37 +4306,37 @@ extern volatile __bit PSSAC0 @ (((unsigned) &ECCP1AS)*8) + 2;
 
 extern volatile __bit PSSAC1 @ (((unsigned) &ECCP1AS)*8) + 3;
 
-extern volatile __bit  RA0 @ (((unsigned) &PORTA)*8) + 0;
+extern volatile __bit __attribute__((__deprecated__)) RA0 @ (((unsigned) &PORTA)*8) + 0;
 
-extern volatile __bit  RA1 @ (((unsigned) &PORTA)*8) + 1;
+extern volatile __bit __attribute__((__deprecated__)) RA1 @ (((unsigned) &PORTA)*8) + 1;
 
-extern volatile __bit  RA2 @ (((unsigned) &PORTA)*8) + 2;
+extern volatile __bit __attribute__((__deprecated__)) RA2 @ (((unsigned) &PORTA)*8) + 2;
 
-extern volatile __bit  RA3 @ (((unsigned) &PORTA)*8) + 3;
+extern volatile __bit __attribute__((__deprecated__)) RA3 @ (((unsigned) &PORTA)*8) + 3;
 
-extern volatile __bit  RA4 @ (((unsigned) &PORTA)*8) + 4;
+extern volatile __bit __attribute__((__deprecated__)) RA4 @ (((unsigned) &PORTA)*8) + 4;
 
-extern volatile __bit  RA5 @ (((unsigned) &PORTA)*8) + 5;
+extern volatile __bit __attribute__((__deprecated__)) RA5 @ (((unsigned) &PORTA)*8) + 5;
 
-extern volatile __bit  RA6 @ (((unsigned) &PORTA)*8) + 6;
+extern volatile __bit __attribute__((__deprecated__)) RA6 @ (((unsigned) &PORTA)*8) + 6;
 
 extern volatile __bit RA7 @ (((unsigned) &PORTA)*8) + 7;
 
-extern volatile __bit  RB0 @ (((unsigned) &PORTB)*8) + 0;
+extern volatile __bit __attribute__((__deprecated__)) RB0 @ (((unsigned) &PORTB)*8) + 0;
 
-extern volatile __bit  RB1 @ (((unsigned) &PORTB)*8) + 1;
+extern volatile __bit __attribute__((__deprecated__)) RB1 @ (((unsigned) &PORTB)*8) + 1;
 
-extern volatile __bit  RB2 @ (((unsigned) &PORTB)*8) + 2;
+extern volatile __bit __attribute__((__deprecated__)) RB2 @ (((unsigned) &PORTB)*8) + 2;
 
-extern volatile __bit  RB3 @ (((unsigned) &PORTB)*8) + 3;
+extern volatile __bit __attribute__((__deprecated__)) RB3 @ (((unsigned) &PORTB)*8) + 3;
 
-extern volatile __bit  RB4 @ (((unsigned) &PORTB)*8) + 4;
+extern volatile __bit __attribute__((__deprecated__)) RB4 @ (((unsigned) &PORTB)*8) + 4;
 
-extern volatile __bit  RB5 @ (((unsigned) &PORTB)*8) + 5;
+extern volatile __bit __attribute__((__deprecated__)) RB5 @ (((unsigned) &PORTB)*8) + 5;
 
-extern volatile __bit  RB6 @ (((unsigned) &PORTB)*8) + 6;
+extern volatile __bit __attribute__((__deprecated__)) RB6 @ (((unsigned) &PORTB)*8) + 6;
 
-extern volatile __bit  RB7 @ (((unsigned) &PORTB)*8) + 7;
+extern volatile __bit __attribute__((__deprecated__)) RB7 @ (((unsigned) &PORTB)*8) + 7;
 
 extern volatile __bit RBIE @ (((unsigned) &INTCON)*8) + 3;
 
@@ -4680,9 +4346,9 @@ extern volatile __bit RBIP @ (((unsigned) &INTCON2)*8) + 0;
 
 extern volatile __bit RBPU @ (((unsigned) &INTCON2)*8) + 7;
 
-extern volatile __bit  RC0 @ (((unsigned) &PORTC)*8) + 0;
+extern volatile __bit __attribute__((__deprecated__)) RC0 @ (((unsigned) &PORTC)*8) + 0;
 
-extern volatile __bit  RC1 @ (((unsigned) &PORTC)*8) + 1;
+extern volatile __bit __attribute__((__deprecated__)) RC1 @ (((unsigned) &PORTC)*8) + 1;
 
 extern volatile __bit RC1IE @ (((unsigned) &PIE1)*8) + 5;
 
@@ -4690,7 +4356,7 @@ extern volatile __bit RC1IF @ (((unsigned) &PIR1)*8) + 5;
 
 extern volatile __bit RC1IP @ (((unsigned) &IPR1)*8) + 5;
 
-extern volatile __bit  RC2 @ (((unsigned) &PORTC)*8) + 2;
+extern volatile __bit __attribute__((__deprecated__)) RC2 @ (((unsigned) &PORTC)*8) + 2;
 
 extern volatile __bit RC3 @ (((unsigned) &PORTC)*8) + 3;
 
@@ -4698,9 +4364,9 @@ extern volatile __bit RC4 @ (((unsigned) &PORTC)*8) + 4;
 
 extern volatile __bit RC5 @ (((unsigned) &PORTC)*8) + 5;
 
-extern volatile __bit  RC6 @ (((unsigned) &PORTC)*8) + 6;
+extern volatile __bit __attribute__((__deprecated__)) RC6 @ (((unsigned) &PORTC)*8) + 6;
 
-extern volatile __bit  RC7 @ (((unsigned) &PORTC)*8) + 7;
+extern volatile __bit __attribute__((__deprecated__)) RC7 @ (((unsigned) &PORTC)*8) + 7;
 
 extern volatile __bit RC8_9 @ (((unsigned) &RCSTA)*8) + 6;
 
@@ -6066,7 +5732,7 @@ void Delay1KTCYx(unsigned char);
 void Delay10KTCYx(unsigned char);
 
 # 18 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18.h"
- void flash_write(const unsigned char *, unsigned int, __far unsigned char *);
+__attribute__((__unsupported__("The flash_write routine is no longer supported. Please use the peripheral library functions: WriteBytesFlash, WriteBlockFlash or WriteWordFlash"))) void flash_write(const unsigned char *, unsigned int, __far unsigned char *);
 
 
 # 41
@@ -6095,6 +5761,340 @@ SYSTEM_STATE_USB_RESUME
 
 # 51
 void SYSTEM_Initialize( SYSTEM_STATE state );
+
+# 13 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\stdint.h"
+typedef signed char int8_t;
+
+# 20
+typedef signed int int16_t;
+
+# 28
+typedef signed short long int int24_t;
+
+# 36
+typedef signed long int int32_t;
+
+# 43
+typedef unsigned char uint8_t;
+
+# 49
+typedef unsigned int uint16_t;
+
+# 56
+typedef unsigned short long int uint24_t;
+
+# 63
+typedef unsigned long int uint32_t;
+
+# 71
+typedef signed char int_least8_t;
+
+# 78
+typedef signed int int_least16_t;
+
+# 90
+typedef signed short long int int_least24_t;
+
+# 98
+typedef signed long int int_least32_t;
+
+# 105
+typedef unsigned char uint_least8_t;
+
+# 111
+typedef unsigned int uint_least16_t;
+
+# 121
+typedef unsigned short long int uint_least24_t;
+
+# 128
+typedef unsigned long int uint_least32_t;
+
+# 137
+typedef signed char int_fast8_t;
+
+# 144
+typedef signed int int_fast16_t;
+
+# 156
+typedef signed short long int int_fast24_t;
+
+# 164
+typedef signed long int int_fast32_t;
+
+# 171
+typedef unsigned char uint_fast8_t;
+
+# 177
+typedef unsigned int uint_fast16_t;
+
+# 187
+typedef unsigned short long int uint_fast24_t;
+
+# 194
+typedef unsigned long int uint_fast32_t;
+
+# 200
+typedef int32_t intmax_t;
+
+
+
+
+typedef uint32_t uintmax_t;
+
+
+
+
+typedef int16_t intptr_t;
+
+
+
+
+typedef uint16_t uintptr_t;
+
+# 69 "C:/Users/Sodor/MPLABXProjects/AccessB.X\usb_ch9.h"
+typedef struct  _USB_DEVICE_DESCRIPTOR
+{
+uint8_t bLength;
+uint8_t bDescriptorType;
+uint16_t bcdUSB;
+uint8_t bDeviceClass;
+uint8_t bDeviceSubClass;
+uint8_t bDeviceProtocol;
+uint8_t bMaxPacketSize0;
+uint16_t idVendor;
+uint16_t idProduct;
+uint16_t bcdDevice;
+uint8_t iManufacturer;
+uint8_t iProduct;
+uint8_t iSerialNumber;
+uint8_t bNumConfigurations;
+} USB_DEVICE_DESCRIPTOR;
+
+# 93
+typedef struct  _USB_CONFIGURATION_DESCRIPTOR
+{
+uint8_t bLength;
+uint8_t bDescriptorType;
+uint16_t wTotalLength;
+uint8_t bNumInterfaces;
+uint8_t bConfigurationValue;
+uint8_t iConfiguration;
+uint8_t bmAttributes;
+uint8_t bMaxPower;
+} USB_CONFIGURATION_DESCRIPTOR;
+
+# 116
+typedef struct  _USB_INTERFACE_DESCRIPTOR
+{
+uint8_t bLength;
+uint8_t bDescriptorType;
+uint8_t bInterfaceNumber;
+uint8_t bAlternateSetting;
+uint8_t bNumEndpoints;
+uint8_t bInterfaceClass;
+uint8_t bInterfaceSubClass;
+uint8_t bInterfaceProtocol;
+uint8_t iInterface;
+} USB_INTERFACE_DESCRIPTOR;
+
+# 135
+typedef struct  _USB_ENDPOINT_DESCRIPTOR
+{
+uint8_t bLength;
+uint8_t bDescriptorType;
+uint8_t bEndpointAddress;
+uint8_t bmAttributes;
+uint16_t wMaxPacketSize;
+uint8_t bInterval;
+} USB_ENDPOINT_DESCRIPTOR;
+
+# 185
+typedef struct
+{
+uint8_t index;
+uint8_t type;
+uint16_t language_id;
+
+} DESCRIPTOR_ID;
+
+# 200
+typedef struct  _USB_OTG_DESCRIPTOR
+{
+uint8_t bLength;
+uint8_t bDescriptorType;
+uint8_t bmAttributes;
+} USB_OTG_DESCRIPTOR;
+
+# 224
+typedef struct  _USB_STRING_DSC
+{
+uint8_t bLength;
+uint8_t bDescriptorType;
+
+} USB_STRING_DESCRIPTOR;
+
+# 243
+typedef struct  _USB_DEVICE_QUALIFIER_DESCRIPTOR
+{
+uint8_t bLength;
+uint8_t bType;
+uint16_t bcdUSB;
+uint8_t bDeviceClass;
+uint8_t bDeviceSubClass;
+uint8_t bDeviceProtocol;
+uint8_t bMaxPacketSize0;
+uint8_t bNumConfigurations;
+uint8_t bReserved;
+
+} USB_DEVICE_QUALIFIER_DESCRIPTOR;
+
+# 266
+typedef union 
+{
+
+struct 
+{
+uint8_t bmRequestType;
+uint8_t bRequest;
+uint16_t wValue;
+uint16_t wIndex;
+uint16_t wLength;
+};
+struct 
+{
+unsigned :8;
+unsigned :8;
+union
+{
+uint16_t Val;
+uint8_t v[2];
+struct
+{
+uint8_t LB;
+uint8_t HB;
+} byte;
+} W_Value;
+
+union
+{
+uint16_t Val;
+uint8_t v[2];
+struct
+{
+uint8_t LB;
+uint8_t HB;
+} byte;
+} W_Index;
+
+union
+{
+uint16_t Val;
+uint8_t v[2];
+struct
+{
+uint8_t LB;
+uint8_t HB;
+} byte;
+} W_Length;
+};
+struct 
+{
+unsigned Recipient:5;
+unsigned RequestType:2;
+unsigned DataDir:1;
+unsigned :8;
+uint8_t bFeature;
+unsigned :8;
+unsigned :8;
+unsigned :8;
+unsigned :8;
+unsigned :8;
+};
+struct 
+{
+union
+{
+uint8_t bmRequestType;
+struct
+{
+uint8_t recipient: 5;
+uint8_t type: 2;
+uint8_t direction: 1;
+};
+}requestInfo;
+};
+struct 
+{
+unsigned :8;
+unsigned :8;
+uint8_t bDscIndex;
+uint8_t bDescriptorType;
+uint16_t wLangID;
+unsigned :8;
+unsigned :8;
+};
+struct 
+{
+unsigned :8;
+unsigned :8;
+uint8_t bDevADR;
+uint8_t bDevADRH;
+unsigned :8;
+unsigned :8;
+unsigned :8;
+unsigned :8;
+};
+struct 
+{
+unsigned :8;
+unsigned :8;
+uint8_t bConfigurationValue;
+uint8_t bCfgRSD;
+unsigned :8;
+unsigned :8;
+unsigned :8;
+unsigned :8;
+};
+struct 
+{
+unsigned :8;
+unsigned :8;
+uint8_t bAltID;
+uint8_t bAltID_H;
+uint8_t bIntfID;
+uint8_t bIntfID_H;
+unsigned :8;
+unsigned :8;
+};
+struct 
+{
+unsigned :8;
+unsigned :8;
+unsigned :8;
+unsigned :8;
+uint8_t bEPID;
+uint8_t bEPID_H;
+unsigned :8;
+unsigned :8;
+};
+struct 
+{
+unsigned :8;
+unsigned :8;
+unsigned :8;
+unsigned :8;
+unsigned EPNum:4;
+unsigned :3;
+unsigned EPDir:1;
+unsigned :8;
+unsigned :8;
+unsigned :8;
+};
+
+
+
+} CTRL_TRF_SETUP, SETUP_PKT, *PSETUP_PKT;
 
 # 133 "C:/Users/Sodor/MPLABXProjects/AccessB.X\usb_common.h"
 typedef union
@@ -6667,7 +6667,7 @@ bool USBHALSetEpConfiguration ( uint8_t ep_num, uint16_t max_pkt_size, uint16_t 
 # 597
 bool USBHALInitialize ( unsigned long flags );
 
-# 98 "usb_device_hid.h"
+# 98 "C:/Users/Sodor/MPLABXProjects/AccessB.X\usb_device_hid.h"
 void USBCheckHIDRequest(void);
 
 # 280
@@ -6695,97 +6695,20 @@ extern volatile CTRL_TRF_SETUP SetupPkt;
 extern const uint8_t configDescriptor1[];
 extern volatile uint8_t CtrlTrfData[8];
 
-# 59 "usb_device_hid.c"
-typedef struct 
+# 100 "UDF.c"
+extern volatile void* USBOutHandle;
+extern volatile void* USBInHandle;
+extern unsigned char ReceivedDataBuffer[64] @ 0x500;
+extern unsigned char ToSendDataBuffer[64] @ 0x540;
+
+# 111
+void __section("AccB_Psect") UDF(void)
 {
-unsigned :8;
-unsigned :8;
-uint8_t reportId;
-uint8_t duration;
-} USB_SETUP_SET_IDLE_RATE;
-
-typedef struct 
-{
-unsigned :8;
-unsigned :8;
-uint8_t protocol;
-} USB_SETUP_SET_PROTOCOL;
-
-# 79
-static uint8_t idle_rate;
-static uint8_t active_protocol;
-
-extern const struct{uint8_t report[29];}hid_rpt01;
-
-# 153
-void USBCheckHIDRequest(void)
-{
-if(SetupPkt.Recipient != (0x01)) return;
-if(SetupPkt.bIntfID != 0x00) return;
-
-# 163
-if(SetupPkt.bRequest == 6)
-{
-switch(SetupPkt.bDescriptorType)
-{
-case 0x21:
-if(USBActiveConfiguration == 1)
-{
-{ inPipes[0].pSrc.bRom = (const uint8_t*)&configDescriptor1 + 18; inPipes[0].wCount.Val = sizeof(USB_HID_DSC)+3; inPipes[0].info.Val = 0x40 | 0x80 | 0x00; };
-
-# 174
-}
-break;
-case 0x22:
-
-{
-{ inPipes[0].pSrc.bRom = (const uint8_t*)&hid_rpt01; inPipes[0].wCount.Val = 29; inPipes[0].info.Val = 0x40 | 0x80 | 0x00; };
-
-# 183
-}
-break;
-case 0x23:
-
-# 197
-break;
-}
-}
-
-if(SetupPkt.RequestType != (0x20>>5))
-{
-return;
-}
-
-switch(SetupPkt.bRequest)
-{
-case 0x01:
-
-# 212
-break;
-case 0x09:
-
-# 217
-break;
-case 0x02:
-{ inPipes[0].pSrc.bRam = (uint8_t*)&idle_rate; inPipes[0].wCount.Val = 1; inPipes[0].info.Val = 0x40 | 0x80 | 0x01; };
-
-# 223
-break;
-case 0x0A:
-inPipes[0].info.Val = 0x00 | 0x80;
-idle_rate = ((USB_SETUP_SET_IDLE_RATE*)&SetupPkt)->duration;
-;
-break;
-case 0x03:
-{ inPipes[0].pSrc.bRam = (uint8_t*)&active_protocol; inPipes[0].wCount.Val = 1; inPipes[0].info.Val = 0x00 | 0x80 | 0x01; };
-
-# 234
-break;
-case 0x0B:
-inPipes[0].info.Val = 0x00 | 0x80;
-active_protocol = ((USB_SETUP_SET_PROTOCOL*)&SetupPkt)->protocol;
-break;
-}
 
 }
 
+# 125
+void __section("AccB_Psect") UDF_ISR(void)
+{
+
+}

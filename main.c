@@ -40,7 +40,7 @@ MAIN_RETURN main(void)
     IPR1 = 0;   //All others interrupt sources will be Low priority
     IPR2 = 32; //USB interrupt is High priority
     RCONbits.IPEN = 1;  //Enabling interrupt priority
-    ADCON1bits.PCFG = 0x0F; //By default al I/O digital
+    ADCON1bits.PCFG = 0x0F; //By default all I/O digital
     CMCONbits.CM = 7; //Comparators off by default
 
     while(1)

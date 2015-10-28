@@ -1,14 +1,13 @@
- build/18F2550/production/usb_descriptors.d  \
- build/18F2550/production/usb_descriptors.p1:  \
- usb_descriptors.c  \
+ build/18F2550/production/UDF.d  \
+ build/18F2550/production/UDF.p1:  \
+ UDF.c  \
 C:/Users/Sodor/MPLABXProjects/AccessB.X/usb_common.h  \
 C:/Users/Sodor/MPLABXProjects/AccessB.X/system.h  \
-usb_ch9.h  \
-usb.h  \
+C:/Users/Sodor/MPLABXProjects/AccessB.X/usb.h  \
 C:/Users/Sodor/MPLABXProjects/AccessB.X/system_config.h  \
 C:/Users/Sodor/MPLABXProjects/AccessB.X/usb_ch9.h  \
+C:/Users/Sodor/MPLABXProjects/AccessB.X/usb_device_hid.h  \
 C:/Users/Sodor/MPLABXProjects/AccessB.X/usb_device.h  \
-usb_device_hid.h  \
 C:/Users/Sodor/MPLABXProjects/AccessB.X/usb_config.h  \
 C:/Users/Sodor/MPLABXProjects/AccessB.X/usb_hal.h  \
 C:/Users/Sodor/MPLABXProjects/AccessB.X/usb_hal_pic18.h  \

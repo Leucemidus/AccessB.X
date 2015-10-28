@@ -2,7 +2,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "131 usb_device.c
 [c E5069 0 1 2 4 8 16 32 .. ]
 [n E5069 . DETACHED_STATE ATTACHED_STATE POWERED_STATE DEFAULT_STATE ADR_PENDING_STATE ADDRESS_STATE CONFIGURED_STATE  ]
-"260 C:/Users/Omar trevizo/MPLABXProjects/AccessB.X\usb_hal_pic18.h
+"260 C:/Users/Sodor/MPLABXProjects/AccessB.X\usb_hal_pic18.h
 [s S583 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S583 . BC8 BC9 BSTALL DTSEN INCDIS KEN DTS UOWN ]
 "271
@@ -23,7 +23,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "289
 [u S586 `S587 1 `S588 1 `ul 1 `uc -> 4 `i ]
 [n S586 __BDT . . Val v ]
-"1989 C:/Users/Omar trevizo/MPLABXProjects/AccessB.X\usb_device.h
+"1989 C:/Users/Sodor/MPLABXProjects/AccessB.X\usb_device.h
 [u S575 `*uc 1 `*Cuc 1 `*ui 1 `*Cui 1 ]
 [n S575 . bRam bRom wRam wRom ]
 "2000
@@ -54,7 +54,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "2018
 [s S578 `S579 1 `S580 1 `S572 1 `*F5218 1 ]
 [n S578 . pDst info wCount pFunc ]
-"312 C:/Users/Omar trevizo/MPLABXProjects/AccessB.X\usb_hal_pic18.h
+"312 C:/Users/Sodor/MPLABXProjects/AccessB.X\usb_hal_pic18.h
 [s S590 :1 `uc 1 :1 `uc 1 :1 `uc 1 :4 `uc 1 ]
 [n S590 . filler1 ping_pong direction endpoint_number ]
 "309
@@ -196,7 +196,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n E5012 . EVENT_NONE EVENT_DEVICE_STACK_BASE EVENT_HOST_STACK_BASE EVENT_HUB_ATTACH EVENT_STALL EVENT_VBUS_SES_REQUEST EVENT_VBUS_OVERCURRENT EVENT_VBUS_REQUEST_POWER EVENT_VBUS_RELEASE_POWER EVENT_VBUS_POWER_AVAILABLE EVENT_UNSUPPORTED_DEVICE EVENT_CANNOT_ENUMERATE EVENT_CLIENT_INIT_ERROR EVENT_OUT_OF_MEMORY EVENT_UNSPECIFIED_ERROR EVENT_DETACH EVENT_TRANSFER EVENT_SOF EVENT_RESUME EVENT_SUSPEND EVENT_RESET EVENT_DATA_ISOC_READ EVENT_DATA_ISOC_WRITE EVENT_OVERRIDE_CLIENT_DRIVER_SELECTION EVENT_1MS EVENT_GENERIC_BASE EVENT_MSD_BASE EVENT_HID_BASE EVENT_PRINTER_BASE EVENT_CDC_BASE EVENT_CHARGER_BASE EVENT_AUDIO_BASE EVENT_USER_BASE EVENT_BUS_ERROR  ]
 "219
 [v _USER_USB_CALLBACK_EVENT_HANDLER `(uc ~T0 @X0 0 ef3`E5012`*v`ui ]
-"1800 C:/Users/Omar trevizo/MPLABXProjects/AccessB.X\usb_device.h
+"1800 C:/Users/Sodor/MPLABXProjects/AccessB.X\usb_device.h
 [v _USBIncrement1msInternalTimers `(v ~T0 @X0 0 ef ]
 "674
 [v _USBCtrlEPAllowStatusStage `(v ~T0 @X0 0 ef ]

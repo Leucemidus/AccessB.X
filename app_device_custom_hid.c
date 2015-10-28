@@ -26,6 +26,7 @@ please contact mla_licensing@microchip.com
 #include <string.h>
 #include <system.h>
 #include <AccessB.h>
+#include "UDF.h"
 
 
 /** VARIABLES ******************************************************/
@@ -76,7 +77,8 @@ typedef enum {
             EUSART_TX = 0x14,
             EUSART_RX = 0x15,
             SFR_READ_BIT_VALUE = 0x16,
-            ADC_BUFFERED_READ = 0x17,
+            UDF_CALL = 0x18,
+            UDF_PROGRAM = 0x19,
             ADC_START = 0xFB,
             ADC_STOP = 0xFA,
             TEST = 0xFF
@@ -213,14 +215,19 @@ void APP_DeviceCustomHIDTasks()
                 EusartRx();
                 break;
 
-            case ADC_BUFFERED_READ:
-
-                AdcBufferedRead();
-                break;
-
             case TEST:
 
                 Test();
+                break;
+
+            case UDF_CALL:
+
+                UDF();
+                break;
+
+            case UDF_PROGRAM:
+
+                UDF_Program();
                 break;
         }
         //Re-arm the OUT endpoint, so we can receive the next OUT data packet 

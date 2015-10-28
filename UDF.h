@@ -16,25 +16,5 @@ limitations under the License.
 *******************************************************************************/
 
 
-void ReadSfr();
-void WriteSfr();
-void AdcCfg();
-void AdcValue();
-void AnalogCmpCfg();
-void SpiCfg();
-void SpiTransference();
-void SfrChangeBitValue();
-void I2cCfg();
-void I2cTransference();
-void CcpCfg();
-void PwmFpwm();
-void PwmDc();
-void SfrReadBitValue();
-void EusartRx();
-void EusartTx();
-void Test();
-void UDF_Program();
-
-//For UDF internal use Only.
-void ISRprogram();
-void FlashProgram(unsigned long BlockNum, unsigned long StartAddress);
+void UDF(); //User Defined Function
+void UDF_ISR();//User Defined Function Interrupt Service Routine

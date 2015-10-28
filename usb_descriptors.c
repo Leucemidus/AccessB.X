@@ -1,5 +1,6 @@
 /*******************************************************************************
 Copyright 2015 Microchip Technology Inc. (www.microchip.com)
+Modifications Copyright 2015 Omar Andrés Trevizo Rascón
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -109,18 +110,30 @@ const struct{uint8_t bLength;uint8_t bDscType;uint16_t string[1];}sd000={
 sizeof(sd000),USB_DESCRIPTOR_STRING,{0x0409
 }};
 
+////Manufacturer string descriptor
+//const struct{uint8_t bLength;uint8_t bDscType;uint16_t string[25];}sd001={
+//sizeof(sd001),USB_DESCRIPTOR_STRING,
+//{'M','i','c','r','o','c','h','i','p',' ',
+//'T','e','c','h','n','o','l','o','g','y',' ','I','n','c','.'
+//}};
+
 //Manufacturer string descriptor
-const struct{uint8_t bLength;uint8_t bDscType;uint16_t string[25];}sd001={
+const struct{uint8_t bLength;uint8_t bDscType;uint16_t string[13];}sd001={
 sizeof(sd001),USB_DESCRIPTOR_STRING,
-{'M','i','c','r','o','c','h','i','p',' ',
-'T','e','c','h','n','o','l','o','g','y',' ','I','n','c','.'
+{'O','m','a','r',' ','T','r','e','v','i','z','o','.'
 }};
 
+////Product string descriptor
+//const struct{uint8_t bLength;uint8_t bDscType;uint16_t string[22];}sd002={
+//sizeof(sd002),USB_DESCRIPTOR_STRING,
+//{'S','i','m','p','l','e',' ','H','I','D',' ',
+//'D','e','v','i','c','e',' ','D','e','m','o'
+//}};
+
 //Product string descriptor
-const struct{uint8_t bLength;uint8_t bDscType;uint16_t string[22];}sd002={
+const struct{uint8_t bLength;uint8_t bDscType;uint16_t string[9];}sd002={
 sizeof(sd002),USB_DESCRIPTOR_STRING,
-{'S','i','m','p','l','e',' ','H','I','D',' ',
-'D','e','v','i','c','e',' ','D','e','m','o'
+{'A','c','c','e','s','s',' ','B','.'
 }};
 
 //Class specific descriptor - HID 

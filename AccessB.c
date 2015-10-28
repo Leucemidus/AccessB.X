@@ -16,18 +16,21 @@ limitations under the License.
 *******************************************************************************/
 
 /**INCLUDES*****************************************************/
+#include "plib.h"
 #include <AccessB.h>
 #include <usb.h>
 #include <usb_device_hid.h>
 #include <string.h>
 #include <system.h>
+#include <UDF.h>
 
 
 /**GLOBAL VARIABLES********************************************/
 extern volatile USB_HANDLE USBOutHandle;
 extern volatile USB_HANDLE USBInHandle;
-extern volatile unsigned int BufferCounter;
-extern volatile unsigned int BufferPingPong;
+///TODO: ya no se usa
+//extern volatile unsigned int BufferCounter;
+//extern volatile unsigned int BufferPingPong;
 unsigned int ADCON0Tmp; //Archivos temporales de ADC
 unsigned int ADCON2Tmp;
 unsigned int FSR0Ltemp;
@@ -76,10 +79,14 @@ typedef enum {
             EUSART_TX = 0x14,
             EUSART_RX = 0x15,
             SFR_READ_BIT_VALUE = 0x16,
-            ADC_BUFFERED_READ = 0x17,
+            UDF_CALL = 0x18,
+            UDF_PROGRAM = 0x19,
             ADC_START = 0xFB,
             ADC_STOP = 0xFA,
-            TEST = 0xFF
+            UDF_PROGRAM_FAIL = 0xFA,
+            UDF_PROGRAM_SUCCESS = 0xFB,
+            TEST = 0xFF,
+            READY = 0xFF
 } COMMUNICATION_CMDS;
 
 typedef enum {
@@ -120,6 +127,8 @@ void ReadSfr()
 
 			ToSendDataBuffer[3] = POSTINC0; //DatosL
 			ToSendDataBuffer[4] = INDF0; //DatosH
+                        ToSendDataBuffer[5] = 0;
+                        ToSendDataBuffer[6] = 0;
 
 			ToSendDataBuffer[0] = READ_SFR;
 			ToSendDataBuffer[1] = ReceivedDataBuffer[1];
@@ -132,6 +141,8 @@ void ReadSfr()
 			FSR0L = ReceivedDataBuffer[2]; //Dirección del SFR
 			ToSendDataBuffer[3] = INDF0; //L
 			ToSendDataBuffer[4] = 0; //H
+                        ToSendDataBuffer[5] = 0;
+                        ToSendDataBuffer[6] = 0;
 
 			ToSendDataBuffer[0] = READ_SFR;
 			ToSendDataBuffer[1] = ReceivedDataBuffer[1];
@@ -713,7 +724,6 @@ void I2cTransference()
 	//ReceivedDataBuffer[6] Restart?
 	//ReceivedDataButter[7-63] Data to be TX
 
-        ///FIXME : Se cambiaron todos los break por return, probar si el codigo funciona igual
 	if (!HIDTxHandleBusy(USBInHandle))
 	{
 		//ConfirmaciÃ³n de recepcion
@@ -1049,23 +1059,37 @@ void SfrReadBitValue()
 
 void EusartRx()
 {
-	//ReceivedDataBuffer[1] Number of bytes to be Rx
-	
-	if(ReceivedDataBuffer[1] == 1)
-	{
-		RCSTAbits.SREN = 1; //Single receive
-	}
-	else if(ReceivedDataBuffer[1] == 0)
-	{
-		RCSTAbits.CREN = 1; //Continous Receive
-	}
-	for(int n = 0; n < ReceivedDataBuffer[2]; n++)
-	{
-		while(PIR1bits.RCIF);
-		PIR1bits.RCIF = 0;
-		ToSendDataBuffer[n] = RCREG;
-	}
-	RCSTAbits.CREN = 0; //Disable continous reception
+
+	//ReceivedDataBuffer[1] Continous or single reception
+        //ReceivedDataBuffer[2] Number of bytes to be received
+	///FIXME: SREN y CREN afectan diferente el modulo cuando es sincrono o asincrono tengo que resolver eso
+
+    if(TXSTAbits.SYNC == 1)//Modo Sincrono
+    {
+        if(ReceivedDataBuffer[1] == 1)
+        {
+                RCSTAbits.SREN = 1; //Single receive
+        }
+        else if(ReceivedDataBuffer[1] == 0)
+        {
+                RCSTAbits.CREN = 1; //Continous Receive
+        }
+    }
+
+    for(int n = 0; n <= ReceivedDataBuffer[2] - 1; n++)
+    {
+            while(!PIR1bits.RCIF);//Metodo bloqueante para el modo asincrono
+            PIR1bits.RCIF = 0;
+            ToSendDataBuffer[n] = RCREG;
+    }
+
+    if(TXSTAbits.SYNC == 1)  //Para modo sincron
+    {
+        RCSTAbits.CREN = 0;
+    }
+
+    //RCSTAbits.CREN = 0; //Disable continous reception
+    USBInHandle = HIDTxPacket(CUSTOM_DEVICE_HID_EP, (uint8_t*) & ToSendDataBuffer[0], 64);
 }
 
 void EusartTx()
@@ -1074,79 +1098,10 @@ void EusartTx()
 	//ReceivedDataBuffer[1] Number of bytes to be TX
 	//ReceivedDataBuffer[2-64] Data to be TX
 
-	for(int n = 0; n < ReceivedDataBuffer[1]; n++)
+	for(int n = 0; n <= ReceivedDataBuffer[1] - 1; n++)
 	{
 		TXREG = ReceivedDataBuffer[n+2];
-		while(!TXSTAbits.TRMT); //TRMT == 1 buffer vario
-	}
-}
-
-void AdcBufferedRead()
-{
-	if(ReceivedDataBuffer[1] == ADC_START)
-	{
-		PIR1bits.ADIF = 0;      //Clear Interrupt Flag
-		PIE1bits.ADIE = 1;      //Enable ADC interrupt
-		INTCONbits.PEIE = 1;    //Enabling peripheral interrupts
-		BufferCounter = 0;      //
-		BufferPingPong = Ping;  //start filling ping buffer
-		switch (ReceivedDataBuffer[1]) {
-			case 0:
-				ADCON0bits.CHS = 0; //Channel 0
-				break;
-			case 1:
-				ADCON0bits.CHS = 1; //Channel 1
-				break;
-			case 2:
-				ADCON0bits.CHS = 2; //Channel 2
-				break;
-			case 3:
-				ADCON0bits.CHS = 3; //Channel 3
-				break;
-			case 4:
-				ADCON0bits.CHS = 4; //Channel 4
-				break;
-			case 8:
-				ADCON0bits.CHS = 8; //Channel 8
-				break;
-			case 9:
-				ADCON0bits.CHS = 9; //Channel 9
-				break;
-			case 10:
-				ADCON0bits.CHS = 10; //Channel 10
-				break;
-			case 11:
-				ADCON0bits.CHS = 11; //Channel 11
-				break;
-			case 12:
-				ADCON0bits.CHS = 12; //Channel 12
-				break;
-		}
-		ADCON0bits.ADON = 1;    // Turn on ADC
-		ADCON0bits.GODONE = 1;  //Start convertion
-//                    unsigned int counter = 0;
-//                    while(1)
-//                    {
-//                        ADCON0bits.GODONE = 1;
-//                        while(ADCON0bits.GODONE){}
-//                        ToSendDataBuffer[counter] = ADRESL;
-//                        ToSendDataBuffer[counter + 1] = ADRESH;
-//                        counter = counter + 2;
-//                        if(counter + 1 == 61)
-//                        {
-//                            while(HIDTxHandleBusy(USBInHandle)) {}
-//                            USBInHandle = HIDTxPacket(CUSTOM_DEVICE_HID_EP, (uint8_t*) & ToSendDataBuffer[0], 64);
-//                            counter = 0;
-//                            while(HIDTxHandleBusy(USBInHandle)) {}
-//                        }
-//                    }
-	}
-	else if(ReceivedDataBuffer[1] == ADC_STOP)
-	{
-		ADCON0bits.ADON = 0;    //Turn off ADC
-		PIE1bits.ADIE = 0;      //Disable ADC interrupt
-		PIR1bits.ADIF = 0;      //Clear interrupt flag
-		INTCONbits.PEIE =0;     //Disabling peripheral interrupts
+		while(!TXSTAbits.TRMT); //TRMT == 1 buffer vacio
 	}
 }
 
@@ -1211,4 +1166,142 @@ void Test()
 	while (HIDTxHandleBusy(USBInHandle)) { }
 	ToSendDataBuffer[0] = 20;
 	USBInHandle = HIDTxPacket(CUSTOM_DEVICE_HID_EP, (uint8_t*) & ToSendDataBuffer[0], 64);
+}
+
+void UDF_Program()
+{
+    //First reception: arguments
+    //ReceivedDataBuffer[1 - 2] Number of blocks of 32 bytes to be programmed
+    //ReceivedDataBuffer[1] = BlockNum High byte
+    //ReceivedDataBuffer[2] = BlockNum Low byte
+    //ReceivedDataBuffer[3 - 4] = Start Address
+    //ReceivedDataBuffer[3] = Address High byte
+    //ReceivedDataBuffer[4] = Address Low byte
+    //Two blocks of 32 bytes will be received in each subsecuent reception
+    //until the number of blocks to be programmed will be reached.
+
+    unsigned long BlockNum = 0;
+    unsigned long StartAddress = 0;
+    
+    BlockNum = ReceivedDataBuffer[1];
+    BlockNum = ((BlockNum << 8) & 0xF0) | ReceivedDataBuffer[2];
+
+    StartAddress = ReceivedDataBuffer[3];
+    StartAddress = ((StartAddress << 8) & 0xFF00) | ReceivedDataBuffer[4];
+
+    //Re-arm the OUT endpoint, so we can receive the next OUT data packet
+    //that the host may try to send us.
+    USBOutHandle = HIDRxPacket(CUSTOM_DEVICE_HID_EP, (uint8_t*)&ReceivedDataBuffer, 64);
+
+    //Check if the user want to program outside the UDF reserved data space.
+    if(StartAddress < 0x41C0)
+    {
+        ToSendDataBuffer[0] = UDF_PROGRAM_FAIL;
+        while(HIDTxHandleBusy(USBInHandle)){}
+        USBInHandle = HIDTxPacket(CUSTOM_DEVICE_HID_EP, (uint8_t*) & ToSendDataBuffer[0], 64);
+        return;
+    }
+
+    //Tell host that is ready to receive data to program
+    ToSendDataBuffer[0] = READY;
+    while(HIDTxHandleBusy(USBInHandle)){}
+    USBInHandle = HIDTxPacket(CUSTOM_DEVICE_HID_EP, (uint8_t*) & ToSendDataBuffer[0], 64);
+
+    //Insertar codiog para programar salto a la ISR
+    ISRprogram();
+    //Then we write the program
+    FlashProgram(BlockNum, StartAddress);
+
+    //Re-arm the OUT endpoint, so we can receive the next OUT data packet
+    //that the host may try to send us.
+    USBOutHandle = HIDRxPacket(CUSTOM_DEVICE_HID_EP, (uint8_t*)&ReceivedDataBuffer, 64);
+}
+
+void ISRprogram()
+{
+    unsigned int ISRCallOpcodeStartAdd = 0x0040;
+    unsigned char ProgramArray[32];
+    unsigned char VerifyArray[32];
+    //First rewrite the ISR call opcode
+    EraseFlash(0x0040, 0x007F); //Borra el bloque de memoria donde esta el salto a la ISR
+    for(int i = 0; i != 2; i++)
+    {
+       //Wait for data to program to be received
+        while(HIDRxHandleBusy(USBOutHandle)){}
+
+        //Re-arm the OUT endpoint, so we can receive the next OUT data packet
+        //that the host may try to send us.
+        USBOutHandle = HIDRxPacket(CUSTOM_DEVICE_HID_EP, (uint8_t*)&ReceivedDataBuffer, 64);
+
+        for(unsigned int j = 0; j != 32; j++)
+        {
+            ProgramArray[j] = ReceivedDataBuffer[j];
+        }
+
+        //One block of 32 bytes is received and must be programmed
+        WriteBlockFlash(ISRCallOpcodeStartAdd, 1, ProgramArray);
+
+        //Verify programmed data
+        ReadFlash(ISRCallOpcodeStartAdd, 32, VerifyArray);
+        for(unsigned int i = 0; i != 32; i++)
+        {
+            if(ProgramArray[i] != VerifyArray[i])
+            {
+                ToSendDataBuffer[0] = UDF_PROGRAM_FAIL;
+                while(HIDTxHandleBusy(USBInHandle)){}
+                USBInHandle = HIDTxPacket(CUSTOM_DEVICE_HID_EP, (uint8_t*) & ToSendDataBuffer[0], 64);
+                return; //No Success exit function.
+            }
+        }
+        ISRCallOpcodeStartAdd = ISRCallOpcodeStartAdd + 32;
+        
+        //Tell Host that write opertion went OK and if it can send other block
+        ToSendDataBuffer[0] = UDF_PROGRAM_SUCCESS;
+        while(HIDTxHandleBusy(USBInHandle)){}
+        USBInHandle = HIDTxPacket(CUSTOM_DEVICE_HID_EP, (uint8_t*) & ToSendDataBuffer[0], 64);
+    }
+}
+
+void FlashProgram(unsigned long BlockNum, unsigned long StartAddress)
+{
+    unsigned char ProgramArray[32];
+    unsigned char VerifyArray[32];
+
+    EraseFlash(StartAddress, 0x7FC0); //Borra todo el bloque de memoria flash que no se usa
+    for(unsigned short AdvBlock = BlockNum; AdvBlock != 0; AdvBlock = AdvBlock--)
+    {
+       //Wait for data to program to be received
+        while(HIDRxHandleBusy(USBOutHandle)){}
+
+        //Re-arm the OUT endpoint, so we can receive the next OUT data packet
+        //that the host may try to send us.
+        USBOutHandle = HIDRxPacket(CUSTOM_DEVICE_HID_EP, (uint8_t*)&ReceivedDataBuffer, 64);
+
+        for(unsigned int j = 0; j != 32; j++)
+        {
+            ProgramArray[j] = ReceivedDataBuffer[j];
+        }
+
+        //One block of 32 bytes is received and must be programmed
+        WriteBlockFlash(StartAddress, 1, ProgramArray);
+
+        //Verify programmed data
+        ReadFlash(StartAddress, 32, VerifyArray);
+        for(unsigned int i = 0; i != 32; i++)
+        {
+            if(ProgramArray[i] != VerifyArray[i])
+            {
+                ToSendDataBuffer[0] = UDF_PROGRAM_FAIL;
+                while(HIDTxHandleBusy(USBInHandle)){}
+                USBInHandle = HIDTxPacket(CUSTOM_DEVICE_HID_EP, (uint8_t*) & ToSendDataBuffer[0], 64);
+                return; //No Success exit function.
+            }
+        }
+        StartAddress = StartAddress + 32;
+
+        //Tell Host that write opertion went OK and if it can send other block
+        ToSendDataBuffer[0] = UDF_PROGRAM_SUCCESS;
+        while(HIDTxHandleBusy(USBInHandle)){}
+        USBInHandle = HIDTxPacket(CUSTOM_DEVICE_HID_EP, (uint8_t*) & ToSendDataBuffer[0], 64);
+    }
 }

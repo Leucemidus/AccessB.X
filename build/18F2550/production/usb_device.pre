@@ -6099,7 +6099,7 @@ unsigned :8;
 
 } CTRL_TRF_SETUP, SETUP_PKT, *PSETUP_PKT;
 
-# 133 "C:/Users/Omar trevizo/MPLABXProjects/AccessB.X\usb_common.h"
+# 133 "C:/Users/Sodor/MPLABXProjects/AccessB.X\usb_common.h"
 typedef union
 {
 uint8_t bitmap;
@@ -6256,7 +6256,7 @@ uint8_t bDeviceProtocol;
 # 451
 typedef bool (*USB_EVENT_HANDLER) ( USB_EVENT event, void *data, unsigned int size );
 
-# 73 "C:/Users/Omar trevizo/MPLABXProjects/AccessB.X\usb_device.h"
+# 73 "C:/Users/Sodor/MPLABXProjects/AccessB.X\usb_device.h"
 typedef enum
 {
 
@@ -6529,7 +6529,7 @@ extern char * strichr(const char *, int);
 extern char * strrchr(const char *, int);
 extern char * strrichr(const char *, int);
 
-# 257 "C:/Users/Omar trevizo/MPLABXProjects/AccessB.X\usb_hal_pic18.h"
+# 257 "C:/Users/Sodor/MPLABXProjects/AccessB.X\usb_hal_pic18.h"
 typedef union _BD_STAT
 {
 uint8_t Val;
@@ -6629,7 +6629,7 @@ extern volatile OUT_PIPE outPipes[1];
 extern volatile BDT_ENTRY* pBDTEntryOut[1+1];
 extern volatile BDT_ENTRY* pBDTEntryIn[1+1];
 
-# 161 "C:/Users/Omar trevizo/MPLABXProjects/AccessB.X\usb_hal.h"
+# 161 "C:/Users/Sodor/MPLABXProjects/AccessB.X\usb_hal.h"
 void OTGCORE_SetDeviceAddr( uint8_t addr );
 
 # 197

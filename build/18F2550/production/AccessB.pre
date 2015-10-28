@@ -1,26 +1,6 @@
 
 # 1 "AccessB.c"
 
-# 19 "C:/Users/Omar trevizo/MPLABXProjects/AccessB.X\AccessB.h"
-void ReadSfr();
-void WriteSfr();
-void AdcCfg();
-void AdcValue();
-void AnalogCmpCfg();
-void SpiCfg();
-void SpiTransference();
-void SfrChangeBitValue();
-void I2cCfg();
-void I2cTransference();
-void CcpCfg();
-void PwmFpwm();
-void PwmDc();
-void SfrReadBitValue();
-void EusartRx();
-void EusartTx();
-void AdcBufferedRead();
-void Test();
-
 # 21 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
 
@@ -3406,7 +3386,7 @@ unsigned STKPTR4 :1;
 };
 struct {
 unsigned :7;
-unsigned STKOVF :1;
+unsigned STKFUL :1;
 };
 } STKPTRbits_t;
 extern volatile STKPTRbits_t STKPTRbits @ 0xFFC;
@@ -4514,7 +4494,7 @@ extern volatile __bit START @ (((unsigned) &SSPSTAT)*8) + 3;
 
 extern volatile __bit STKFUL @ (((unsigned) &STKPTR)*8) + 7;
 
-extern volatile __bit STKOVF @ (((unsigned) &STKPTR)*8) + 7;
+extern volatile __bit STKFUL @ (((unsigned) &STKPTR)*8) + 7;
 
 extern volatile __bit STKPTR0 @ (((unsigned) &STKPTR)*8) + 0;
 
@@ -4839,6 +4819,23 @@ extern volatile __bit nTO @ (((unsigned) &RCON)*8) + 3;
 extern volatile __bit nW @ (((unsigned) &SSPSTAT)*8) + 2;
 
 extern volatile __bit nWRITE @ (((unsigned) &SSPSTAT)*8) + 2;
+
+# 18 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18.h"
+__attribute__((__unsupported__("The flash_write routine is no longer supported. Please use the peripheral library functions: WriteBytesFlash, WriteBlockFlash or WriteWordFlash"))) void flash_write(const unsigned char *, unsigned int, __far unsigned char *);
+
+
+# 41
+#pragma intrinsic(__nop)
+extern void __nop(void);
+
+
+# 146
+#pragma intrinsic(_delay)
+extern __nonreentrant void _delay(unsigned long);
+#pragma intrinsic(_delaywdt)
+extern __nonreentrant void _delaywdt(unsigned long);
+#pragma intrinsic(_delay3)
+extern __nonreentrant void _delay3(unsigned char);
 
 # 2008 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\plib\adc.h"
 union ADCResult
@@ -5751,27 +5748,34 @@ void Delay1KTCYx(unsigned char);
 # 37
 void Delay10KTCYx(unsigned char);
 
-# 18 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18.h"
-__attribute__((__unsupported__("The flash_write routine is no longer supported. Please use the peripheral library functions: WriteBytesFlash, WriteBlockFlash or WriteWordFlash"))) void flash_write(const unsigned char *, unsigned int, __far unsigned char *);
+# 19 "C:/Users/Sodor/MPLABXProjects/AccessB.X\AccessB.h"
+void ReadSfr();
+void WriteSfr();
+void AdcCfg();
+void AdcValue();
+void AnalogCmpCfg();
+void SpiCfg();
+void SpiTransference();
+void SfrChangeBitValue();
+void I2cCfg();
+void I2cTransference();
+void CcpCfg();
+void PwmFpwm();
+void PwmDc();
+void SfrReadBitValue();
+void EusartRx();
+void EusartTx();
+void Test();
+void UDF_Program();
 
 
-# 41
-#pragma intrinsic(__nop)
-extern void __nop(void);
-
-
-# 146
-#pragma intrinsic(_delay)
-extern __nonreentrant void _delay(unsigned long);
-#pragma intrinsic(_delaywdt)
-extern __nonreentrant void _delaywdt(unsigned long);
-#pragma intrinsic(_delay3)
-extern __nonreentrant void _delay3(unsigned char);
+void ISRprogram();
+void FlashProgram(unsigned long BlockNum, unsigned long StartAddress);
 
 # 12 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\stdbool.h"
 typedef unsigned char bool;
 
-# 32 "C:/Users/Omar trevizo/MPLABXProjects/AccessB.X\system.h"
+# 32 "C:/Users/Sodor/MPLABXProjects/AccessB.X\system.h"
 typedef enum
 {
 SYSTEM_STATE_USB_START,
@@ -5872,7 +5876,7 @@ typedef int16_t intptr_t;
 
 typedef uint16_t uintptr_t;
 
-# 69 "C:/Users/Omar trevizo/MPLABXProjects/AccessB.X\usb_ch9.h"
+# 69 "C:/Users/Sodor/MPLABXProjects/AccessB.X\usb_ch9.h"
 typedef struct  _USB_DEVICE_DESCRIPTOR
 {
 uint8_t bLength;
@@ -6116,7 +6120,7 @@ unsigned :8;
 
 } CTRL_TRF_SETUP, SETUP_PKT, *PSETUP_PKT;
 
-# 133 "C:/Users/Omar trevizo/MPLABXProjects/AccessB.X\usb_common.h"
+# 133 "C:/Users/Sodor/MPLABXProjects/AccessB.X\usb_common.h"
 typedef union
 {
 uint8_t bitmap;
@@ -6273,7 +6277,7 @@ uint8_t bDeviceProtocol;
 # 451
 typedef bool (*USB_EVENT_HANDLER) ( USB_EVENT event, void *data, unsigned int size );
 
-# 73 "C:/Users/Omar trevizo/MPLABXProjects/AccessB.X\usb_device.h"
+# 73 "C:/Users/Sodor/MPLABXProjects/AccessB.X\usb_device.h"
 typedef enum
 {
 
@@ -6546,7 +6550,7 @@ extern char * strichr(const char *, int);
 extern char * strrchr(const char *, int);
 extern char * strrichr(const char *, int);
 
-# 257 "C:/Users/Omar trevizo/MPLABXProjects/AccessB.X\usb_hal_pic18.h"
+# 257 "C:/Users/Sodor/MPLABXProjects/AccessB.X\usb_hal_pic18.h"
 typedef union _BD_STAT
 {
 uint8_t Val;
@@ -6646,7 +6650,7 @@ extern volatile OUT_PIPE outPipes[1];
 extern volatile BDT_ENTRY* pBDTEntryOut[1+1];
 extern volatile BDT_ENTRY* pBDTEntryIn[1+1];
 
-# 161 "C:/Users/Omar trevizo/MPLABXProjects/AccessB.X\usb_hal.h"
+# 161 "C:/Users/Sodor/MPLABXProjects/AccessB.X\usb_hal.h"
 void OTGCORE_SetDeviceAddr( uint8_t addr );
 
 # 197
@@ -6687,7 +6691,7 @@ bool USBHALSetEpConfiguration ( uint8_t ep_num, uint16_t max_pkt_size, uint16_t 
 # 597
 bool USBHALInitialize ( unsigned long flags );
 
-# 98 "C:/Users/Omar trevizo/MPLABXProjects/AccessB.X\usb_device_hid.h"
+# 98 "C:/Users/Sodor/MPLABXProjects/AccessB.X\usb_device_hid.h"
 void USBCheckHIDRequest(void);
 
 # 280
@@ -6747,21 +6751,26 @@ extern char * strichr(const char *, int);
 extern char * strrchr(const char *, int);
 extern char * strrichr(const char *, int);
 
-# 27 "AccessB.c"
+# 19 "C:/Users/Sodor/MPLABXProjects/AccessB.X\UDF.h"
+void UDF();
+void UDF_ISR();
+
+# 29 "AccessB.c"
 extern volatile void* USBOutHandle;
 extern volatile void* USBInHandle;
-extern volatile unsigned int BufferCounter;
-extern volatile unsigned int BufferPingPong;
+
+
+
 unsigned int ADCON0Tmp;
 unsigned int ADCON2Tmp;
 unsigned int FSR0Ltemp;
 unsigned int FSR0Htemp;
 
-# 45
+# 48
 extern unsigned char ReceivedDataBuffer[64] @ 0x500;
 extern unsigned char ToSendDataBuffer[64] @ 0x540;
 
-# 58
+# 61
 typedef enum {
 CONFIRM_CMD = 0xFF,
 RESET = 0xFE,
@@ -6783,10 +6792,14 @@ PWM_DC = 0x13,
 EUSART_TX = 0x14,
 EUSART_RX = 0x15,
 SFR_READ_BIT_VALUE = 0x16,
-ADC_BUFFERED_READ = 0x17,
+UDF_CALL = 0x18,
+UDF_PROGRAM = 0x19,
 ADC_START = 0xFB,
 ADC_STOP = 0xFA,
-TEST = 0xFF
+UDF_PROGRAM_FAIL = 0xFA,
+UDF_PROGRAM_SUCCESS = 0xFB,
+TEST = 0xFF,
+READY = 0xFF
 } COMMUNICATION_CMDS;
 
 typedef enum {
@@ -6827,6 +6840,8 @@ FSR0L = ReceivedDataBuffer[2];
 
 ToSendDataBuffer[3] = POSTINC0;
 ToSendDataBuffer[4] = INDF0;
+ToSendDataBuffer[5] = 0;
+ToSendDataBuffer[6] = 0;
 
 ToSendDataBuffer[0] = READ_SFR;
 ToSendDataBuffer[1] = ReceivedDataBuffer[1];
@@ -6839,6 +6854,8 @@ FSR0H = 0x0F;
 FSR0L = ReceivedDataBuffer[2];
 ToSendDataBuffer[3] = INDF0;
 ToSendDataBuffer[4] = 0;
+ToSendDataBuffer[5] = 0;
+ToSendDataBuffer[6] = 0;
 
 ToSendDataBuffer[0] = READ_SFR;
 ToSendDataBuffer[1] = ReceivedDataBuffer[1];
@@ -7413,7 +7430,7 @@ TRISBbits.RB1 = 1;
 void I2cTransference()
 {
 
-# 717
+# 727
 if (!(USBInHandle==0?0:((volatile BDT_ENTRY*)USBInHandle)->STAT.UOWN))
 {
 
@@ -7750,7 +7767,9 @@ USBInHandle = USBTransferOnePacket(1,1,(uint8_t*) & ToSendDataBuffer[0],64);
 void EusartRx()
 {
 
-
+# 1067
+if(TXSTAbits.SYNC == 1)
+{
 if(ReceivedDataBuffer[1] == 1)
 {
 RCSTAbits.SREN = 1;
@@ -7759,13 +7778,22 @@ else if(ReceivedDataBuffer[1] == 0)
 {
 RCSTAbits.CREN = 1;
 }
-for(int n = 0; n < ReceivedDataBuffer[2]; n++)
+}
+
+for(int n = 0; n <= ReceivedDataBuffer[2] - 1; n++)
 {
-while(PIR1bits.RCIF);
+while(!PIR1bits.RCIF);
 PIR1bits.RCIF = 0;
 ToSendDataBuffer[n] = RCREG;
 }
+
+if(TXSTAbits.SYNC == 1)
+{
 RCSTAbits.CREN = 0;
+}
+
+
+USBInHandle = USBTransferOnePacket(1,1,(uint8_t*) & ToSendDataBuffer[0],64);
 }
 
 void EusartTx()
@@ -7774,65 +7802,10 @@ void EusartTx()
 
 
 
-for(int n = 0; n < ReceivedDataBuffer[1]; n++)
+for(int n = 0; n <= ReceivedDataBuffer[1] - 1; n++)
 {
 TXREG = ReceivedDataBuffer[n+2];
 while(!TXSTAbits.TRMT);
-}
-}
-
-void AdcBufferedRead()
-{
-if(ReceivedDataBuffer[1] == ADC_START)
-{
-PIR1bits.ADIF = 0;
-PIE1bits.ADIE = 1;
-INTCONbits.PEIE = 1;
-BufferCounter = 0;
-BufferPingPong = 0;
-switch (ReceivedDataBuffer[1]) {
-case 0:
-ADCON0bits.CHS = 0;
-break;
-case 1:
-ADCON0bits.CHS = 1;
-break;
-case 2:
-ADCON0bits.CHS = 2;
-break;
-case 3:
-ADCON0bits.CHS = 3;
-break;
-case 4:
-ADCON0bits.CHS = 4;
-break;
-case 8:
-ADCON0bits.CHS = 8;
-break;
-case 9:
-ADCON0bits.CHS = 9;
-break;
-case 10:
-ADCON0bits.CHS = 10;
-break;
-case 11:
-ADCON0bits.CHS = 11;
-break;
-case 12:
-ADCON0bits.CHS = 12;
-break;
-}
-ADCON0bits.ADON = 1;
-ADCON0bits.GODONE = 1;
-
-# 1143
-}
-else if(ReceivedDataBuffer[1] == ADC_STOP)
-{
-ADCON0bits.ADON = 0;
-PIE1bits.ADIE = 0;
-PIR1bits.ADIF = 0;
-INTCONbits.PEIE =0;
 }
 }
 
@@ -7897,4 +7870,134 @@ USBInHandle = USBTransferOnePacket(1,1,(uint8_t*) & ToSendDataBuffer[0],64);
 while ((USBInHandle==0?0:((volatile BDT_ENTRY*)USBInHandle)->STAT.UOWN)) { }
 ToSendDataBuffer[0] = 20;
 USBInHandle = USBTransferOnePacket(1,1,(uint8_t*) & ToSendDataBuffer[0],64);
+}
+
+void UDF_Program()
+{
+
+# 1183
+unsigned long BlockNum = 0;
+unsigned long StartAddress = 0;
+
+BlockNum = ReceivedDataBuffer[1];
+BlockNum = ((BlockNum << 8) & 0xF0) | ReceivedDataBuffer[2];
+
+StartAddress = ReceivedDataBuffer[3];
+StartAddress = ((StartAddress << 8) & 0xFF00) | ReceivedDataBuffer[4];
+
+
+
+USBOutHandle = USBTransferOnePacket(1,0,(uint8_t*)&ReceivedDataBuffer,64);
+
+
+if(StartAddress < 0x41C0)
+{
+ToSendDataBuffer[0] = UDF_PROGRAM_FAIL;
+while((USBInHandle==0?0:((volatile BDT_ENTRY*)USBInHandle)->STAT.UOWN)){}
+USBInHandle = USBTransferOnePacket(1,1,(uint8_t*) & ToSendDataBuffer[0],64);
+return;
+}
+
+
+ToSendDataBuffer[0] = READY;
+while((USBInHandle==0?0:((volatile BDT_ENTRY*)USBInHandle)->STAT.UOWN)){}
+USBInHandle = USBTransferOnePacket(1,1,(uint8_t*) & ToSendDataBuffer[0],64);
+
+
+ISRprogram();
+
+FlashProgram(BlockNum, StartAddress);
+
+
+
+USBOutHandle = USBTransferOnePacket(1,0,(uint8_t*)&ReceivedDataBuffer,64);
+}
+
+void ISRprogram()
+{
+unsigned int ISRCallOpcodeStartAdd = 0x0040;
+unsigned char ProgramArray[32];
+unsigned char VerifyArray[32];
+
+EraseFlash(0x0040, 0x007F);
+for(int i = 0; i != 2; i++)
+{
+
+while((USBOutHandle==0?0:((volatile BDT_ENTRY*)USBOutHandle)->STAT.UOWN)){}
+
+
+
+USBOutHandle = USBTransferOnePacket(1,0,(uint8_t*)&ReceivedDataBuffer,64);
+
+for(unsigned int j = 0; j != 32; j++)
+{
+ProgramArray[j] = ReceivedDataBuffer[j];
+}
+
+
+WriteBlockFlash(ISRCallOpcodeStartAdd, 1, ProgramArray);
+
+
+ReadFlash(ISRCallOpcodeStartAdd, 32, VerifyArray);
+for(unsigned int i = 0; i != 32; i++)
+{
+if(ProgramArray[i] != VerifyArray[i])
+{
+ToSendDataBuffer[0] = UDF_PROGRAM_FAIL;
+while((USBInHandle==0?0:((volatile BDT_ENTRY*)USBInHandle)->STAT.UOWN)){}
+USBInHandle = USBTransferOnePacket(1,1,(uint8_t*) & ToSendDataBuffer[0],64);
+return;
+}
+}
+ISRCallOpcodeStartAdd = ISRCallOpcodeStartAdd + 32;
+
+
+ToSendDataBuffer[0] = UDF_PROGRAM_SUCCESS;
+while((USBInHandle==0?0:((volatile BDT_ENTRY*)USBInHandle)->STAT.UOWN)){}
+USBInHandle = USBTransferOnePacket(1,1,(uint8_t*) & ToSendDataBuffer[0],64);
+}
+}
+
+void FlashProgram(unsigned long BlockNum, unsigned long StartAddress)
+{
+unsigned char ProgramArray[32];
+unsigned char VerifyArray[32];
+
+EraseFlash(StartAddress, 0x7FC0);
+for(unsigned short AdvBlock = BlockNum; AdvBlock != 0; AdvBlock = AdvBlock--)
+{
+
+while((USBOutHandle==0?0:((volatile BDT_ENTRY*)USBOutHandle)->STAT.UOWN)){}
+
+
+
+USBOutHandle = USBTransferOnePacket(1,0,(uint8_t*)&ReceivedDataBuffer,64);
+
+for(unsigned int j = 0; j != 32; j++)
+{
+ProgramArray[j] = ReceivedDataBuffer[j];
+}
+
+
+WriteBlockFlash(StartAddress, 1, ProgramArray);
+
+
+ReadFlash(StartAddress, 32, VerifyArray);
+for(unsigned int i = 0; i != 32; i++)
+{
+if(ProgramArray[i] != VerifyArray[i])
+{
+ToSendDataBuffer[0] = UDF_PROGRAM_FAIL;
+while((USBInHandle==0?0:((volatile BDT_ENTRY*)USBInHandle)->STAT.UOWN)){}
+USBInHandle = USBTransferOnePacket(1,1,(uint8_t*) & ToSendDataBuffer[0],64);
+return;
+}
+}
+StartAddress = StartAddress + 32;
+
+
+ToSendDataBuffer[0] = UDF_PROGRAM_SUCCESS;
+while((USBInHandle==0?0:((volatile BDT_ENTRY*)USBInHandle)->STAT.UOWN)){}
+USBInHandle = USBTransferOnePacket(1,1,(uint8_t*) & ToSendDataBuffer[0],64);
+}
 }

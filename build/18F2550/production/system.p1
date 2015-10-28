@@ -1,100 +1,11 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"82 system.c
+"83 system.c
 [c E4775 0 1 2 .. ]
 [n E4775 . SYSTEM_STATE_USB_START SYSTEM_STATE_USB_SUSPEND SYSTEM_STATE_USB_RESUME  ]
-"299 C:/Users/Omar trevizo/MPLABXProjects/AccessB.X\usb_device.h
+"299 C:/Users/Sodor/MPLABXProjects/AccessB.X\usb_device.h
 [v _USBDeviceTasks `(v ~T0 @X0 0 ef ]
-"4062 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f2550.h
-[s S282 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S282 . TMR1IE TMR2IE CCP1IE SSPIE TXIE RCIE ADIE ]
-"4071
-[s S283 :5 `uc 1 :1 `uc 1 ]
-[n S283 . . RC1IE ]
-"4075
-[s S284 :4 `uc 1 :1 `uc 1 ]
-[n S284 . . TX1IE ]
-"4061
-[u S281 `S282 1 `S283 1 `S284 1 ]
-[n S281 . . . . ]
-"4080
-[v _PIE1bits `VS281 ~T0 @X0 0 e@3997 ]
-"4135
-[s S286 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S286 . TMR1IF TMR2IF CCP1IF SSPIF TXIF RCIF ADIF ]
-"4144
-[s S287 :5 `uc 1 :1 `uc 1 ]
-[n S287 . . RC1IF ]
-"4148
-[s S288 :4 `uc 1 :1 `uc 1 ]
-[n S288 . . TX1IF ]
-"4134
-[u S285 `S286 1 `S287 1 `S288 1 ]
-[n S285 . . . . ]
-"4153
-[v _PIR1bits `VS285 ~T0 @X0 0 e@3998 ]
-"97 system.c
-[v _USBInHandle `*Vv ~T0 @X0 0 e ]
-"260 C:/Users/Omar trevizo/MPLABXProjects/AccessB.X\usb_hal_pic18.h
-[s S583 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S583 . BC8 BC9 BSTALL DTSEN INCDIS KEN DTS UOWN ]
-"271
-[s S584 :2 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S584 . . PID0 PID1 PID2 PID3 . ]
-"281
-[s S585 :2 `uc 1 :4 `uc 1 :2 `uc 1 ]
-[n S585 . . PID . ]
-"257
-[u S582 `uc 1 `S583 1 `S584 1 `S585 1 ]
-[n S582 _BD_STAT Val . . . ]
-"292
-[s S587 `S582 1 `uc 1 `uc 1 `uc 1 ]
-[n S587 . STAT CNT ADRL ADRH ]
-"299
-[s S588 :8 `uc 1 :8 `uc 1 `ui 1 ]
-[n S588 . . . ADR ]
-"289
-[u S586 `S587 1 `S588 1 `ul 1 `uc -> 4 `i ]
-[n S586 __BDT . . Val v ]
-"100 system.c
-[v _ToSendDataBuffer `uc ~T0 @X0 -> 0 `x e@1344 ]
-"6229 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f2550.h
-[v _ADRESL `Vuc ~T0 @X0 0 e@4035 ]
-"6235
-[v _ADRESH `Vuc ~T0 @X0 0 e@4036 ]
-"444 C:/Users/Omar trevizo/MPLABXProjects/AccessB.X\usb_device.h
-[v _USBTransferOnePacket `(*v ~T0 @X0 0 ef4`uc`uc`*uc`uc ]
-"6107 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f2550.h
-[s S397 :1 `uc 1 :1 `uc 1 ]
-[n S397 . . GO_NOT_DONE ]
-"6111
-[s S398 :1 `uc 1 :1 `uc 1 :4 `uc 1 ]
-[n S398 . ADON GO_nDONE CHS ]
-"6116
-[s S399 :1 `uc 1 :1 `uc 1 ]
-[n S399 . . GO_NOT_DONE ]
-"6120
-[s S400 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S400 . . GO_DONE CHS0 CHS1 CHS2 CHS3 ]
-"6128
-[s S401 :1 `uc 1 :1 `uc 1 ]
-[n S401 . . DONE ]
-"6132
-[s S402 :1 `uc 1 :1 `uc 1 ]
-[n S402 . . GO ]
-"6136
-[s S403 :1 `uc 1 :1 `uc 1 ]
-[n S403 . . NOT_DONE ]
-"6140
-[s S404 :1 `uc 1 :1 `uc 1 ]
-[n S404 . . nDONE ]
-"6144
-[s S405 :1 `uc 1 :1 `uc 1 ]
-[n S405 . . GODONE ]
-"6106
-[u S396 `S397 1 `S398 1 `S399 1 `S400 1 `S401 1 `S402 1 `S403 1 `S404 1 `S405 1 ]
-[n S396 . . . . . . . . . . ]
-"6149
-[v _ADCON0bits `VS396 ~T0 @X0 0 e@4034 ]
+"20 UDF.h
+[v _UDF_ISR `(v ~T0 @X0 0 ef ]
 [; ;htc.h: 21: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 24: extern void __builtin_software_breakpoint(void);
 [; ;pic18f2550.h: 47: extern volatile unsigned short UFRM @ 0xF66;
@@ -5049,242 +4960,144 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;AccessB.X\usb_device_hid.h: 303: extern volatile CTRL_TRF_SETUP SetupPkt;
 [; ;AccessB.X\usb_device_hid.h: 304: extern const uint8_t configDescriptor1[];
 [; ;AccessB.X\usb_device_hid.h: 305: extern volatile uint8_t CtrlTrfData[8];
-"29 system.c
+[; ;UDF.h: 19: void UDF();
+[; ;UDF.h: 20: void UDF_ISR();
+"30 system.c
 [p x PLLDIV=1 ]
-"30
-[p x CPUDIV=OSC1_PLL2 ]
 "31
-[p x USBDIV=2 ]
+[p x CPUDIV=OSC1_PLL2 ]
 "32
-[p x FOSC=XTPLL_XT ]
+[p x USBDIV=2 ]
 "33
-[p x FCMEN=OFF ]
+[p x FOSC=XTPLL_XT ]
 "34
-[p x IESO=OFF ]
+[p x FCMEN=OFF ]
 "35
-[p x PWRT=OFF ]
+[p x IESO=OFF ]
 "36
-[p x BOR=ON ]
+[p x PWRT=OFF ]
 "37
-[p x BORV=3 ]
+[p x BOR=ON ]
 "38
-[p x VREGEN=ON ]
+[p x BORV=3 ]
 "39
-[p x WDT=OFF ]
+[p x VREGEN=ON ]
 "40
-[p x WDTPS=32768 ]
+[p x WDT=OFF ]
 "41
-[p x MCLRE=OFF ]
+[p x WDTPS=32768 ]
 "42
-[p x LPT1OSC=OFF ]
+[p x MCLRE=OFF ]
 "43
+[p x LPT1OSC=OFF ]
+"44
 [p x PBADEN=OFF ]
-"45
-[p x STVREN=ON ]
 "46
+[p x STVREN=ON ]
+"47
 [p x LVP=OFF ]
-"48
-[p x XINST=OFF ]
 "49
-[p x CP0=OFF ]
+[p x XINST=OFF ]
 "50
+[p x CP0=OFF ]
+"51
 [p x CP1=OFF ]
-"53
+"54
 [p x CPB=OFF ]
-"55
-[p x WRT0=OFF ]
 "56
+[p x WRT0=OFF ]
+"57
 [p x WRT1=OFF ]
-"59
-[p x WRTB=OFF ]
 "60
+[p x WRTB=OFF ]
+"61
 [p x WRTC=OFF ]
-"62
-[p x EBTR0=OFF ]
 "63
+[p x EBTR0=OFF ]
+"64
 [p x EBTR1=OFF ]
-"66
+"67
 [p x EBTRB=OFF ]
-"81
+"82
 [v _SYSTEM_Initialize `(v ~T0 @X0 1 ef1`E4775 ]
-"82
+"83
 {
-[; ;system.c: 81: void SYSTEM_Initialize( SYSTEM_STATE state )
-[; ;system.c: 82: {
+[; ;system.c: 82: void SYSTEM_Initialize( SYSTEM_STATE state )
+[; ;system.c: 83: {
 [e :U _SYSTEM_Initialize ]
-"81
-[v _state `E4775 ~T0 @X0 1 r1 ]
 "82
+[v _state `E4775 ~T0 @X0 1 r1 ]
+"83
 [f ]
-[; ;system.c: 83: switch(state)
-"83
-[e $U 597  ]
-[; ;system.c: 84: {
+[; ;system.c: 84: switch(state)
 "84
-{
-[; ;system.c: 85: case SYSTEM_STATE_USB_START:
+[e $U 597  ]
+[; ;system.c: 85: {
 "85
-[e :U 598 ]
-[; ;system.c: 86: break;
+{
+[; ;system.c: 86: case SYSTEM_STATE_USB_START:
 "86
+[e :U 598 ]
+[; ;system.c: 87: break;
+"87
 [e $U 596  ]
-[; ;system.c: 88: case SYSTEM_STATE_USB_SUSPEND:
-"88
-[e :U 599 ]
-[; ;system.c: 89: break;
+[; ;system.c: 89: case SYSTEM_STATE_USB_SUSPEND:
 "89
+[e :U 599 ]
+[; ;system.c: 90: break;
+"90
 [e $U 596  ]
-[; ;system.c: 91: case SYSTEM_STATE_USB_RESUME:
-"91
-[e :U 600 ]
-[; ;system.c: 92: break;
+[; ;system.c: 92: case SYSTEM_STATE_USB_RESUME:
 "92
-[e $U 596  ]
+[e :U 600 ]
+[; ;system.c: 93: break;
 "93
-}
-[; ;system.c: 93: }
 [e $U 596  ]
-"83
+"94
+}
+[; ;system.c: 94: }
+[e $U 596  ]
+"84
 [e :U 597 ]
 [e [\ _state , $ -> . `E4775 0 `E4775 598
  , $ -> . `E4775 1 `E4775 599
  , $ -> . `E4775 2 `E4775 600
  596 ]
-"93
-[e :U 596 ]
-[; ;system.c: 94: }
 "94
+[e :U 596 ]
+[; ;system.c: 95: }
+"95
 [e :UE 595 ]
 }
-[; ;system.c: 97: extern volatile void* USBInHandle;
-"98
-[v _BufferCounter `Vui ~T0 @X0 1 e ]
-[; ;system.c: 98: volatile unsigned int BufferCounter;
-"99
-[v _BufferPingPong `Vui ~T0 @X0 1 e ]
-[; ;system.c: 99: volatile unsigned int BufferPingPong;
-[; ;system.c: 100: extern unsigned char ToSendDataBuffer[64] @ 0x540;
-[v F5427 `(v ~T0 @X0 1 tf ]
-"103
-[v _SYS_InterruptHigh `IF5427 ~T0 @X0 1 e ]
+[v F5425 `(v ~T0 @X0 1 tf ]
 "104
+[v _SYS_InterruptHigh `IF5425 ~T0 @X0 1 e ]
+"105
 {
-[; ;system.c: 103: void interrupt SYS_InterruptHigh(void)
-[; ;system.c: 104: {
+[; ;system.c: 104: void interrupt SYS_InterruptHigh(void)
+[; ;system.c: 105: {
 [e :U _SYS_InterruptHigh ]
 [f ]
-[; ;system.c: 106: USBDeviceTasks();
-"106
+[; ;system.c: 107: USBDeviceTasks();
+"107
 [e ( _USBDeviceTasks ..  ]
-[; ;system.c: 108: }
-"108
+[; ;system.c: 109: }
+"109
 [e :UE 601 ]
 }
-[v F5430 `(v ~T0 @X0 1 tf ]
-"111
-[v _ISRLowPriority `ILF5430 ~T0 @X0 1 e ]
-"112
-{
-[; ;system.c: 111: void interrupt low_priority ISRLowPriority(void)
-[; ;system.c: 112: {
-[e :U _ISRLowPriority ]
-[f ]
-[; ;system.c: 114: if(PIE1bits.ADIE && PIR1bits.ADIF)
+[v F5428 `(v ~T0 @X0 1 tf ]
 "114
-[e $ ! && != -> . . _PIE1bits 0 6 `i -> -> -> 0 `i `Vuc `i != -> . . _PIR1bits 0 6 `i -> -> -> 0 `i `Vuc `i 603  ]
-[; ;system.c: 115: {
+[v _ISRLowPriority `ILF5428 ~T0 @X0 1 e ]
 "115
 {
-[; ;system.c: 116: if(BufferCounter + 1 == 61)
-"116
-[e $ ! == + _BufferCounter -> -> 1 `i `ui -> -> 61 `i `ui 604  ]
-[; ;system.c: 117: {
+[; ;system.c: 114: void interrupt low_priority ISRLowPriority(void)
+[; ;system.c: 115: {
+[e :U _ISRLowPriority ]
+[f ]
+[; ;system.c: 117: UDF_ISR();
 "117
-{
-[; ;system.c: 118: if(!(USBInHandle==0?0:((volatile BDT_ENTRY*)USBInHandle)->STAT.UOWN))
+[e ( _UDF_ISR ..  ]
+[; ;system.c: 118: }
 "118
-[e $ ! ! != ? == _USBInHandle -> -> 0 `i `*Vv : -> 0 `i -> . . . . *U -> _USBInHandle `*VS586 0 0 1 7 `i -> 0 `i 605  ]
-[; ;system.c: 119: {
-"119
-{
-[; ;system.c: 120: ToSendDataBuffer[BufferCounter] = ADRESL;
-"120
-[e = *U + &U _ToSendDataBuffer * -> _BufferCounter `ux -> -> # *U &U _ToSendDataBuffer `ui `ux _ADRESL ]
-[; ;system.c: 121: ToSendDataBuffer[BufferCounter + 1] = ADRESH;
-"121
-[e = *U + &U _ToSendDataBuffer * -> + _BufferCounter -> -> 1 `i `ui `ux -> -> # *U &U _ToSendDataBuffer `ui `ux _ADRESH ]
-[; ;system.c: 122: ToSendDataBuffer[63] = 255;
-"122
-[e = *U + &U _ToSendDataBuffer * -> -> -> 63 `i `ui `ux -> -> # *U &U _ToSendDataBuffer `ui `ux -> -> 255 `i `uc ]
-[; ;system.c: 123: USBInHandle = USBTransferOnePacket(1,1,(uint8_t*) & ToSendDataBuffer[0],64);
-"123
-[e = _USBInHandle -> ( _USBTransferOnePacket (4 , , , -> -> 1 `i `uc -> -> 1 `i `uc &U *U + &U _ToSendDataBuffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _ToSendDataBuffer `ui `ux -> -> 64 `i `uc `*Vv ]
-[; ;system.c: 124: BufferCounter = 0;
-"124
-[e = _BufferCounter -> -> 0 `i `ui ]
-[; ;system.c: 125: PIR1bits.ADIF = 0;
-"125
-[e = . . _PIR1bits 0 6 -> -> 0 `i `uc ]
-[; ;system.c: 126: ADCON0bits.GODONE = 1;
-"126
-[e = . . _ADCON0bits 8 1 -> -> 1 `i `uc ]
-[; ;system.c: 127: return;
-"127
-[e $UE 602  ]
-"128
-}
-[; ;system.c: 128: }
-[e $U 606  ]
-"129
-[e :U 605 ]
-[; ;system.c: 129: else
-[; ;system.c: 130: {
-"130
-{
-[; ;system.c: 131: return;
-"131
-[e $UE 602  ]
-"132
-}
-[e :U 606 ]
-"133
-}
-[; ;system.c: 132: }
-[; ;system.c: 133: }
-[e $U 607  ]
-"134
-[e :U 604 ]
-[; ;system.c: 134: else
-[; ;system.c: 135: {
-"135
-{
-[; ;system.c: 136: ToSendDataBuffer[BufferCounter] = ADRESL;
-"136
-[e = *U + &U _ToSendDataBuffer * -> _BufferCounter `ux -> -> # *U &U _ToSendDataBuffer `ui `ux _ADRESL ]
-[; ;system.c: 137: ToSendDataBuffer[BufferCounter + 1] = ADRESH;
-"137
-[e = *U + &U _ToSendDataBuffer * -> + _BufferCounter -> -> 1 `i `ui `ux -> -> # *U &U _ToSendDataBuffer `ui `ux _ADRESH ]
-[; ;system.c: 138: BufferCounter = BufferCounter + 2;
-"138
-[e = _BufferCounter + _BufferCounter -> -> 2 `i `ui ]
-[; ;system.c: 139: PIR1bits.ADIF = 0;
-"139
-[e = . . _PIR1bits 0 6 -> -> 0 `i `uc ]
-[; ;system.c: 140: ADCON0bits.GODONE =1;
-"140
-[e = . . _ADCON0bits 8 1 -> -> 1 `i `uc ]
-[; ;system.c: 141: return;
-"141
-[e $UE 602  ]
-"142
-}
-[e :U 607 ]
-"143
-}
-[e :U 603 ]
-[; ;system.c: 142: }
-[; ;system.c: 143: }
-[; ;system.c: 144: }
-"144
 [e :UE 602 ]
 }

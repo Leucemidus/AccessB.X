@@ -5751,7 +5751,7 @@ extern __nonreentrant void _delay3(unsigned char);
 # 12 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\stdbool.h"
 typedef unsigned char bool;
 
-# 32 "C:/Users/Omar trevizo/MPLABXProjects/AccessB.X\system.h"
+# 32 "C:/Users/Sodor/MPLABXProjects/AccessB.X\system.h"
 typedef enum
 {
 SYSTEM_STATE_USB_START,
@@ -5852,7 +5852,7 @@ typedef int16_t intptr_t;
 
 typedef uint16_t uintptr_t;
 
-# 69 "C:/Users/Omar trevizo/MPLABXProjects/AccessB.X\usb_ch9.h"
+# 69 "C:/Users/Sodor/MPLABXProjects/AccessB.X\usb_ch9.h"
 typedef struct  _USB_DEVICE_DESCRIPTOR
 {
 uint8_t bLength;
@@ -6096,7 +6096,7 @@ unsigned :8;
 
 } CTRL_TRF_SETUP, SETUP_PKT, *PSETUP_PKT;
 
-# 133 "C:/Users/Omar trevizo/MPLABXProjects/AccessB.X\usb_common.h"
+# 133 "C:/Users/Sodor/MPLABXProjects/AccessB.X\usb_common.h"
 typedef union
 {
 uint8_t bitmap;
@@ -6253,7 +6253,7 @@ uint8_t bDeviceProtocol;
 # 451
 typedef bool (*USB_EVENT_HANDLER) ( USB_EVENT event, void *data, unsigned int size );
 
-# 73 "C:/Users/Omar trevizo/MPLABXProjects/AccessB.X\usb_device.h"
+# 73 "C:/Users/Sodor/MPLABXProjects/AccessB.X\usb_device.h"
 typedef enum
 {
 
@@ -6526,7 +6526,7 @@ extern char * strichr(const char *, int);
 extern char * strrchr(const char *, int);
 extern char * strrichr(const char *, int);
 
-# 257 "C:/Users/Omar trevizo/MPLABXProjects/AccessB.X\usb_hal_pic18.h"
+# 257 "C:/Users/Sodor/MPLABXProjects/AccessB.X\usb_hal_pic18.h"
 typedef union _BD_STAT
 {
 uint8_t Val;
@@ -6626,7 +6626,7 @@ extern volatile OUT_PIPE outPipes[1];
 extern volatile BDT_ENTRY* pBDTEntryOut[1+1];
 extern volatile BDT_ENTRY* pBDTEntryIn[1+1];
 
-# 161 "C:/Users/Omar trevizo/MPLABXProjects/AccessB.X\usb_hal.h"
+# 161 "C:/Users/Sodor/MPLABXProjects/AccessB.X\usb_hal.h"
 void OTGCORE_SetDeviceAddr( uint8_t addr );
 
 # 197
@@ -6695,7 +6695,7 @@ extern volatile CTRL_TRF_SETUP SetupPkt;
 extern const uint8_t configDescriptor1[];
 extern volatile uint8_t CtrlTrfData[8];
 
-# 40 "usb_descriptors.c"
+# 41 "usb_descriptors.c"
 const USB_DEVICE_DESCRIPTOR device_dsc=
 {
 0x12,
@@ -6768,18 +6768,16 @@ const struct{uint8_t bLength;uint8_t bDscType;uint16_t string[1];}sd000={
 sizeof(sd000),0x03,{0x0409
 }};
 
-
-const struct{uint8_t bLength;uint8_t bDscType;uint16_t string[25];}sd001={
+# 121
+const struct{uint8_t bLength;uint8_t bDscType;uint16_t string[13];}sd001={
 sizeof(sd001),0x03,
-{'M','i','c','r','o','c','h','i','p',' ',
-'T','e','c','h','n','o','l','o','g','y',' ','I','n','c','.'
+{'O','m','a','r',' ','T','r','e','v','i','z','o','.'
 }};
 
-
-const struct{uint8_t bLength;uint8_t bDscType;uint16_t string[22];}sd002={
+# 134
+const struct{uint8_t bLength;uint8_t bDscType;uint16_t string[9];}sd002={
 sizeof(sd002),0x03,
-{'S','i','m','p','l','e',' ','H','I','D',' ',
-'D','e','v','i','c','e',' ','D','e','m','o'
+{'A','c','c','e','s','s',' ','B','.'
 }};
 
 
