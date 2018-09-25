@@ -24,7 +24,6 @@ please contact mla_licensing@microchip.com
 #include <usb.h>
 #include <adc.h>
 #include <usb_device_hid.h>
-#include "UDF.h"
 
 /** CONFIGURATION Bits **********************************************/
 #pragma config PLLDIV   = 1         // (4 MHz crystal) MODDED
@@ -38,7 +37,7 @@ please contact mla_licensing@microchip.com
 #pragma config BORV     = 3
 #pragma config VREGEN   = ON      //USB Voltage Regulator
 #pragma config WDT      = OFF
-#pragma config WDTPS    = 32768
+#pragma config WDTPS    = 2048      //WDT configured to 8 seconds reset (4ms*2048)
 #pragma config MCLRE    = OFF    //MODDED
 #pragma config LPT1OSC  = OFF
 #pragma config PBADEN   = OFF
@@ -113,8 +112,6 @@ void interrupt SYS_InterruptHigh(void)
 //Low priority interrupt belongs to UDF ONLY
 void interrupt low_priority ISRLowPriority(void)
 {
-    //Call the UDF ISR
-    UDF_ISR();
 }
 
 

@@ -26,14 +26,20 @@ please contact mla_licensing@microchip.com
 #include <usb_device_hid.h>
 
 #include <app_device_custom_hid.h>
+#include <ModeSelect.h>
 
-
-
+asm("goto 0x100"); //start address on program memory for ModeSelect function
 
 MAIN_RETURN main(void)
 {
+    //This is only to declare MS_Psect, if not it will not compile.
+    if(0)
+    {
+        ModeSelect();//This function never gets called by C code
+    }
+    
     SYSTEM_Initialize(SYSTEM_STATE_USB_START);
-
+    
     USBDeviceInit();
     USBDeviceAttach();
 
@@ -62,7 +68,6 @@ MAIN_RETURN main(void)
             // instruction cycles) before it returns.
             USBDeviceTasks();
         #endif
-
         /* If the USB device isn't configured yet, we can't really do anything
          * else since we don't have a host to talk to.  So jump back to the
          * top of the while loop. */

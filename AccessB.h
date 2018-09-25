@@ -33,8 +33,3 @@ void SfrReadBitValue();
 void EusartRx();
 void EusartTx();
 void Test();
-void UDF_Program();
-
-//For UDF internal use Only.
-void ISRprogram();
-void FlashProgram(unsigned long BlockNum, unsigned long StartAddress);
